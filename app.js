@@ -73,9 +73,10 @@ function render(r){
  $('#send').onclick=async()=>{const c=cfg();if(!c.key||!c.svc||!c.tpl){toast('Add EmailJS keys in Settings first');return show('set')}
   const t=$$('[data-m]').filter(i=>i.value.trim());if(!t.length)return toast('Enter at least one email');
   $('#send').disabled=true;let ok=0;
-  for(const i of t){try{await emailjs.send(c.svc,c.tpl,{to_email:i.value.trim(),to_name:i.dataset.m,subject:'Your expense settlement',message:summary(r,i.dataset.m)},{publicKey:c.key});ok++}catch(e){console.error(e)}}
+  for(const i of t){try{await emailjs.send(c.svc,c.tpl,{to_email:i.value.trim(),to_name:i.dataset.m,subject:'Expense split: your balance, '+i.dataset.m,message:summary(r,i.dataset.m)},{publicKey:c.key});ok++}catch(e){console.error(e)}}
   $('#send').disabled=false;toast(`Sent ${ok} of ${t.length} email(s)`)}}
 
 function renderHist(){const h=get('hist',[]);
  $('#histList').innerHTML=h.length?h.map(x=>`<div class="card pay"><span>${esc(x.date)} &middot; ${x.n} members &middot; ${money(x.total)}</span><button class="ghost" data-id="${x.id}">Load</button></div>`).join(''):'<p class="mut">No splits yet.</p>';
  $$('[data-id]').forEach(b=>b.onclick=()=>{$('#log').value=h.find(x=>x.id==b.dataset.id).text;show('new');$('#run').click()})}
+
