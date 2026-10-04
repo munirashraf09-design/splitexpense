@@ -3,7 +3,7 @@ const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return
 const set=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const cfg=()=>({cur:'\u20B9',key:'',svc:'',tpl:'',...get('cfg',{})});
+const cfg=()=>({cur:'\u20B9',...get('cfg',{}),key:'PqX8I7zv6xMl5MA2h',svc:'service_cwrdk9k',tpl:'template_owwzhj8'});
 const money=n=>cfg().cur+n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 const cap=s=>s[0].toUpperCase()+s.slice(1).toLowerCase();
 const STOP=/^(everyone|all|equally|and|the|between|among|split|me|us)$/i;
@@ -79,4 +79,5 @@ function render(r){
 function renderHist(){const h=get('hist',[]);
  $('#histList').innerHTML=h.length?h.map(x=>`<div class="card pay"><span>${esc(x.date)} &middot; ${x.n} members &middot; ${money(x.total)}</span><button class="ghost" data-id="${x.id}">Load</button></div>`).join(''):'<p class="mut">No splits yet.</p>';
  $$('[data-id]').forEach(b=>b.onclick=()=>{$('#log').value=h.find(x=>x.id==b.dataset.id).text;show('new');$('#run').click()})}
+
 
